@@ -1,0 +1,31 @@
+{
+  "name" : "redacted/passwordlessbundle",
+  "description" : "Symfony Passwordless Implementation",
+  "type" : "symfony-bundle",
+  "authors" : [{
+    "name" : "Kyle Harrison",
+    "email" : "redactedprofile@gmail.com"
+  }],
+  "keywords" : [
+    "passwordless",
+    "symfony bundle"
+  ],
+  "license" : [
+    "MIT"
+  ],
+  "require" : {
+  },
+  "autoload" : {
+    "psr-0" : {
+      "Redacted\\PasswordlessBundle" : ""
+    }
+  },
+  "target-dir" : "Redacted/PasswordlessBundle",
+  "repositories" : [{
+  }],
+  "extra" : {
+    "branch-alias" : {
+      "dev-master" : "some_version-dev"
+    }
+  }
+}

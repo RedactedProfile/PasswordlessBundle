@@ -1,0 +1,12 @@
+# This URL is resolved from a form or service that sends an email value in the POST body
+redacted_passwordless_authenticate:
+    path:     /authenticate
+    defaults: { _controller: RedactedPasswordlessBundle:Authenticate:Auth }
+    methods: [POST]
+
+# This URL is resolved in Emails, therefore a UID is required along with the Token
+# The UID serves as a unique resolver to prevent email from being exposed in the URL itself
+redacted_passwordless_verify_get:
+    path:     /verify/{token}/{uid}
+    defaults: { _controller: RedactedPasswordlessBundle:Authenticate:Verify }
+    methods: [GET]

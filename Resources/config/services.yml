@@ -1,0 +1,13 @@
+services:
+#    redacted_passwordless.example:
+#        class: Redacted\PasswordlessBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+  redacted_passwordless_cache:
+    class: Redacted\PasswordlessBundle\Services\CacheService
+
+  redacted_passwordless_token:
+    class: Redacted\PasswordlessBundle\Services\TokenService
+
+  redacted_passwordless_email:
+    class: Redacted\PasswordlessBundle\Services\EmailService
+    arguments: [@doctrine, @mailer, @templating]
