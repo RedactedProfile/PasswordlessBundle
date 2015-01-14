@@ -11,3 +11,6 @@ services:
   redacted_passwordless_email:
     class: Redacted\PasswordlessBundle\Services\EmailService
     arguments: [@mailer, @templating]
+
+  redacted_authenticator:
+    class: Redacted\PasswordlessBundle\Security\RedactedAuthenticator

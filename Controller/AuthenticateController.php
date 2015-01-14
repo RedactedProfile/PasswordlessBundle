@@ -81,7 +81,7 @@ class AuthenticateController extends Controller
         if($cacheProvider->verifyToken($account->getEmail(), $token)) {
             // @todo Symfony Token registration
 
-            
+
 
             // @todo Flash message?
 
