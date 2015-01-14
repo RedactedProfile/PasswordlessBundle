@@ -18,5 +18,5 @@ class RedactedAuthenticator
         $this->securityContext = $context;
     }
 
-    
+
 }

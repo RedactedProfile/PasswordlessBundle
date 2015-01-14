@@ -8,18 +8,34 @@ class RedactedUserToken extends AbstractToken
 {
     public $providerKey;
 
-    public function __construct($email, $providerKey, array $roles = array())
+    public function __construct(array $roles = array())
     {
         parent::__construct($roles);
 
-        if (empty($providerKey)) {
-            throw new \InvalidArgumentException('$providerKey must not be empty.');
-        }
-
-        $this->setUser($email);
-        $this->providerKey = $providerKey;
-
         $this->setAuthenticated(count($roles)> 0);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return serialize(
+            array(
+                is_object($this->getUser()) ? clone $this->getUser() : $this->getUser(),
+                $this->isAuthenticated(),
+                $this->getRoles(),
+                $this->getAttributes(),
+            )
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($serialized)
+    {
+        list($this->user, $this->authenticated, $this->roles, $this->attributes) = unserialize($serialized);
     }
 
     public function getCredentials()
