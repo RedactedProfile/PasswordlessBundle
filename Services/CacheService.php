@@ -3,6 +3,7 @@
 namespace Redacted\PasswordlessBundle\Services;
 
 use Doctrine\Common\Cache\RedisCache;
+use Symfony\Component\VarDumper\VarDumper;
 
 class CacheService
 {
@@ -24,7 +25,7 @@ class CacheService
         $store = $this->getStore();
         $email = $this->hash($email);
         $token = $this->hash($token);
-        $store->save($this->getKey($token), $email, 120);
+        $store->save($this->getKey($token), $email, 5000);
     }
 
     public function verifyToken($email, $token)
@@ -32,6 +33,7 @@ class CacheService
         $store = $this->getStore();
         $email = $this->hash($email);
         $token = $this->hash($token);
+
         $data = $store->fetch($this->getKey($token));
 
         if(!$data)
@@ -63,6 +65,6 @@ class CacheService
      */
     private function hash($item, $cost = 10)
     {
-        return password_hash($item, PASSWORD_BCRYPT, array('cost'=>$cost));
+        return hash('SHA256', $item); //password_hash($item, PASSWORD_BCRYPT, array('cost'=>$cost));
     }
 }

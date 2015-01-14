@@ -67,7 +67,26 @@ class AuthenticateController extends Controller
 
     public function VerifyAction($token, $uid)
     {
-        
+        $doctrine = $this->getDoctrine();
+        $accountRepo = $doctrine->getRepository('RedactedPasswordlessBundle:Account');
+
+        $account = $accountRepo->findOneBy(array('uid'=>$uid));
+        if(!$account) {
+            throw new \Exception('User not found');
+        }
+
+        $cacheProvider = $this->get('redacted_passwordless_cache');
+        $emailProvider = $this->get('redacted_passwordless_email');
+
+        if($cacheProvider->verifyToken($account->getEmail(), $token)) {
+            // @todo Symfony Token registration
+
+            
+
+            // @todo Flash message?
+
+            // @todo Redirect
+        }
     }
 
     public function LoginAction($token, $uid)
