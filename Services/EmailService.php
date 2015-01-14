@@ -8,10 +8,6 @@ use Symfony\Bundle\TwigBundle\TwigEngine;
 class EmailService
 {
     /**
-     * @var Registry
-     */
-    private $doctrine;
-    /**
      * @var \Swift_Mailer
      */
     private $mailer;
@@ -20,9 +16,8 @@ class EmailService
      */
     private $templating;
 
-    public function __construct(Registry $doctrine, \Swift_Mailer $mailer, TwigEngine $templating)
+    public function __construct(\Swift_Mailer $mailer, TwigEngine $templating)
     {
-        $this->doctrine = $doctrine;
         $this->mailer = $mailer;
         $this->templating = $templating;
     }

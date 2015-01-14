@@ -10,4 +10,4 @@ services:
 
   redacted_passwordless_email:
     class: Redacted\PasswordlessBundle\Services\EmailService
-    arguments: [@doctrine, @mailer, @templating]
+    arguments: [@mailer, @templating]
