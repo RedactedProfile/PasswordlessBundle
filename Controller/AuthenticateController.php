@@ -6,6 +6,7 @@ use Doctrine\ORM\NoResultException;
 use Redacted\PasswordlessBundle\Entity\Account;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class AuthenticateController extends Controller
 {
@@ -27,9 +28,8 @@ class AuthenticateController extends Controller
         $accountRepository = $doctrine->getRepository('RedactedPasswordlessBundle:Account');
         $newAccount = false;
 
-        try {
-            $account = $accountRepository->findOneBy(array('email'=>$email));
-        } catch(NoResultException $e) {
+        $account = $accountRepository->findOneBy(array('email'=>$email));
+        if(!$account) {
             $account = new Account();
             $account
                 ->setEmail($email)
@@ -41,6 +41,7 @@ class AuthenticateController extends Controller
 
             $em = $doctrine->getManager();
             $em->persist($account);
+            $em->flush();
 
             $newAccount = true;
         }
@@ -65,6 +66,11 @@ class AuthenticateController extends Controller
 
 
     public function VerifyAction($token, $uid)
+    {
+        
+    }
+
+    public function LoginAction($token, $uid)
     {
 
     }
