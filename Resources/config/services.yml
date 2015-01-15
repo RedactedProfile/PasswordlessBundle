@@ -3,6 +3,12 @@ services:
 #        class: Redacted\PasswordlessBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
 
+  kernel.listener.your_listener_name:
+        class: Redacted\PasswordlessBundle\EventListener\AuthListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 7 }
+
   redacted.security.authentication.provider:
         class: Redacted\PasswordlessBundle\Security\Authentication\Provider\RedactedProvider
         arguments: []

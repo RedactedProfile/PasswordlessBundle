@@ -4,6 +4,7 @@ namespace Redacted\PasswordlessBundle\Controller;
 
 use Doctrine\ORM\NoResultException;
 use Redacted\PasswordlessBundle\Entity\Account;
+use Redacted\PasswordlessBundle\Security\Authentication\Token\RedactedUserToken;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\VarDumper\VarDumper;
@@ -65,7 +66,7 @@ class AuthenticateController extends Controller
     }
 
 
-    public function VerifyAction($token, $uid)
+    public function VerifyAction(Request $request, $token, $uid)
     {
         $doctrine = $this->getDoctrine();
         $accountRepo = $doctrine->getRepository('RedactedPasswordlessBundle:Account');
@@ -81,12 +82,17 @@ class AuthenticateController extends Controller
         if($cacheProvider->verifyToken($account->getEmail(), $token)) {
             // @todo Symfony Token registration
 
+            $token = new RedactedUserToken(array('ROLE_USER'));
+            $token->setUser($account->getEmail());
+            $this->get('security.context')->setToken($token);
 
-
+            $session = $request->getSession();
+            $session->set('passwordless_email', $account->getEmail());
 
             // @todo Flash message?
 
             // @todo Redirect
+            return $this->redirect('/');
         }
     }
 
