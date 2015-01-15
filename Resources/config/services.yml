@@ -9,14 +9,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 7 }
 
-  redacted.security.authentication.provider:
-        class: Redacted\PasswordlessBundle\Security\Authentication\Provider\RedactedProvider
-        arguments: []
-
-  redacted.security.authentication.listener:
-      class: Redacted2\PasswordlessBundle\Security\Firewall\RedactedListener
-      arguments: ["@security.token_storage", "@security.authentication.manager"]
-
   redacted_passwordless_cache:
     class: Redacted\PasswordlessBundle\Services\CacheService
 
