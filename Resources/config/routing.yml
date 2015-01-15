@@ -1,3 +1,12 @@
+redacted_passwordless_login:
+    path:   /login
+    defaults: { _controller: RedactedPasswordlessBundle:Security:Login }
+    methods: [GET]
+
+redacted_passwordless_login_check:
+    path:   /login_check
+    methods: [POST]
+
 # This URL is resolved from a form or service that sends an email value in the POST body
 redacted_passwordless_authenticate:
     path:     /authenticate
